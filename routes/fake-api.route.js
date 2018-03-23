@@ -1,12 +1,10 @@
-const 
-      express = require('express')
+const express = require('express')
     , router  = express.Router()
 
     , controllersPath = '../controllers'
-    , routeController = require(`${controllersPath}/route.controller`) 
-  ;
+    , urlController = require(`${controllersPath}/url.controller`);
 
-router.get('/create', routeController.create);
+router.get('/create', urlController.create);
   
 
 module.exports = router;
