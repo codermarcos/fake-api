@@ -1,0 +1,14 @@
+{
+	"dev": {
+		"driver": "pg",	
+    "user": "postgres",
+    "password": "postgres"
+	},
+  "pg": {
+    "driver": "pg",
+    "user": "postgres",
+    "password": "root",
+    "host": "localhost",
+    "database": "fake_api"
+  }
+}

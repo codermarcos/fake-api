@@ -3,7 +3,7 @@
   Get version
  */
 const { 
-    name
+  name
   , version
 } = require('./package.json');
 
@@ -11,7 +11,7 @@ const {
   Get environment
  */
 const {
-    mode
+  mode
   , host
   , port
 } = require('./environment');
@@ -20,10 +20,10 @@ const {
   Get dependencies
  */
 const express = require('express')
-    , http    = require('http')
-    , app     = express()
+  , http    = require('http')
+  , app     = express()
 
-    , routes  = require('./routes');
+  , routes  = require('./routes');
 
 
 /**
@@ -37,6 +37,6 @@ function start() {
     
   http.createServer(app)
     .listen(port, () => console.log(`${name} started in mode ${mode} on http://${host}:${port}/ on version ${version}.`));
-};
+}
 
 start();
