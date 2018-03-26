@@ -4,7 +4,7 @@ const express = require('express')
   , controllersPath = '../controllers'
   , urlController = require(`${controllersPath}/url.controller`);
 
-router.get('/create', urlController.create);
+router.post('/create', urlController.create);
 
 
 module.exports = router;

@@ -1,7 +1,7 @@
 
 const { connection, selectFields } = require('./database.service');
 
-const env = require('../environment');
+const { db_name } = require('s/environment');
 
 const fields = {
   id         : (value) => !value || Number.isInteger(value) ? value : new Error('Id is not a number')
@@ -17,13 +17,9 @@ class urlService {
   constructor() { }
 
   async insert(values) {
-    const alreadyExist = await this.exist(values);
-
-    if (alreadyExist) throw new Error('This route already exist');
-
     const { _fields, _values } = selectFields(fields, values);
 
-    const sql = `INSERT INTO ${env.db_name}.urls (${_fields.join()}) VALUES (${_values.join()})`
+    const sql = `INSERT INTO ${db_name}.urls (${_fields.join()}) VALUES (${_values.join()})`
       , db = connection();
 
     await db.connect();
@@ -32,11 +28,13 @@ class urlService {
 
     await db.end();
 
-    return result.rowCount > 0 ? 'Inserted with sucess' : 'Cannot be insert';
+    return result.rowCount > 0 ?
+      { status: 200, message: 'Inserted with sucess' } :
+      { status: 500, message: 'Cannot be insert' };
   }
 
   async exist({ url, method }) {
-    const sql = `SELECT * FROM ${env.db_name}.urls WHERE url='${url}' AND method='${method || 'GET'}'`
+    const sql = `SELECT * FROM ${db_name}.urls WHERE url='${url}' AND method='${method || 'GET'}'`
       , db = connection();
 
     await db.connect();

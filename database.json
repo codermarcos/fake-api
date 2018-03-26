@@ -1,14 +1,18 @@
 {
 	"dev": {
-		"driver": "pg",	
-    "user": "postgres",
-    "password": "postgres"
-	},
-  "pg": {
-    "driver": "pg",
-    "user": "postgres",
-    "password": "root",
-    "host": "localhost",
-    "database": "fake_api"
+    "driver"  : "pg"
+    ,	"user"    : "postgres"
+    , "password": "postgres"
+    , "host"    : "localhost"
+    , "schema"  : "public"
+    , "database": "fake_api"
+  }
+  , "pg": {
+    "driver"  : "pg"
+    , "user"    : "postgres"
+    , "password": "postgres"
+    , "host"    : "localhost"
+    , "schema"  : "public"
+    , "database": "fake_api"
   }
 }

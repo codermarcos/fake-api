@@ -2,9 +2,15 @@
     "env": {
         "browser": true,
         "commonjs": true,
+        "mocha": true,
         "node": true,
         "es6": true
     },
+    "plugins": [
+        "mocha",
+        "chai-expect",
+        "chai-friendly"
+    ],
     "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaVersion": 9,
@@ -14,10 +20,15 @@
         "sourceType": "module"
     },
     "rules": {
+        "chai-expect/missing-assertion": "off",
+        "chai-expect/terminating-properties": "on",
+        "no-unused-expressions": "off",
+        "chai-friendly/no-unused-expressions": "off",
         "no-console": "off",
         "indent": [
             "error",
-            2
+            2,
+            { "SwitchCase": 1 }
         ],
         "key-spacing": [
             "error",
