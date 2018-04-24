@@ -6,7 +6,7 @@ const {
   , db_name
   , db_pass
   , db_port
-} = require('./environment');
+} = require('../environment');
 
 const connection = () => new Client({
   database: db_name

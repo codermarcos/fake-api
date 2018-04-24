@@ -5,7 +5,7 @@
 const { 
   name
   , version
-} = require('./package.json');
+} = require('../package.json');
 
 /*  
   Get environment

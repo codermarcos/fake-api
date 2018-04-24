@@ -1,7 +1,7 @@
 
 const { connection, selectFields } = require('./database.service');
 
-const { db_name } = require('s/environment');
+const { db_name } = require('../environment');
 
 const fields = {
   id         : (value) => !value || Number.isInteger(value) ? value : new Error('Id is not a number')
