@@ -15,13 +15,15 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
+  console.log(type);
+  console.log(seed);
   return db.all(`
   CREATE TABLE fake_api.urls
   (
       id serial NOT NULL,
       url text NOT NULL,
       method text NOT NULL DEFAULT 'GET',
-      response text,
+      body text,
       headers text,
       status integer NOT NULL DEFAULT 200,
       PRIMARY KEY (id),
@@ -37,6 +39,8 @@ exports.up = function (db) {
 };
 
 exports.down = function (db) {
+  console.log(type);
+  console.log(seed);
   return db.all(`
   DROP TABLE fake_api.urls
   `, [], (err, res) => console.log(err || res));

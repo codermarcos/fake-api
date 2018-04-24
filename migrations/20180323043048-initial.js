@@ -11,6 +11,8 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
+  console.log(type);
+  console.log(seed);
   return db.all(`
   CREATE SCHEMA fake_api
     AUTHORIZATION postgres;
@@ -18,6 +20,8 @@ exports.up = function (db) {
 };
 
 exports.down = function (db) {
+  console.log(type);
+  console.log(seed);
   return db.all(`
   DROP SCHEMA fake_api
   `, [], (err, res) => console.log(err||res));

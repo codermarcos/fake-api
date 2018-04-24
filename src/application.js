@@ -35,9 +35,9 @@ const express   = require('express')
  * Set up the HTTP server to listen on the correct
  */
 function start() {
-  parser(app);
   middlewares(app);
-  routes.start(app); 
+  parser(app);
+  routes(app); 
   const log = () => console.log(`${name} start in ${mode} on http://${host}:${port}/ at ${version}.`);
 
   const server = http.createServer(app);

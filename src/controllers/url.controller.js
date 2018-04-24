@@ -4,7 +4,7 @@ class urlController {
   constructor() { }
 
   async create(req, res) {
-    const invalidWord = ['url', 'urls'];
+    const invalidWords = ['url', 'urls'];
 
     switch (true) {
       case !req.body.hasOwnProperty('url'):
