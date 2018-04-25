@@ -32,9 +32,13 @@ class urlService {
 
     await db.end();
 
-    return result.rowCount > 0 ?
-      { status: 200, message: 'Inserted with sucess' } :
-      { status: 500, message: 'Cannot be insert' };
+    switch (true) {
+      case result.rowCount > 0:
+        return { status: 200, message: 'Inserted with sucess' };
+    
+      default:
+        return { status: 500, message: 'Cannot be insert' };
+    }
   }
 
   async search(values) {
@@ -42,7 +46,6 @@ class urlService {
 
     const sql = `SELECT * FROM ${db_name}.urls WHERE ${conditions.join(' AND ')}`
       , db = connection();
-    console.log(sql);
 
     await db.connect();
 
@@ -50,9 +53,16 @@ class urlService {
 
     await db.end();
 
-    return result.rowCount === 1 ? 
-      result.rows[0] :
-      new Error('This route not exist');
+    switch (true) {
+      case result.rowCount !== 1:
+        throw { status: 404, message: 'This route not exist' };
+
+      case result.rowCount > 1:
+        throw { status: 422, message: 'This has problem' };
+
+      default:
+        return result.rows[0];
+    }
   }
 
   async exist({ url, method }) {
