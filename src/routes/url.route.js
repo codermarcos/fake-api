@@ -1,10 +1,7 @@
-const express = require('express')
-  , router = express.Router()
-
-  , controllersPath = '../controllers'
-  , urlController = require(`${controllersPath}/url.controller`);
+const urlController = require('../controllers/url.controller')
+  , express = require('express')
+  , router = express.Router();
 
 router.post('/create', urlController.create);
-
 
 module.exports = router;

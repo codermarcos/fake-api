@@ -16,7 +16,7 @@ const connection = () => new Client({
   , port    : db_port
 });
 
-const selectFields = (fields, values) => {  
+const insertFields = (fields, values) => {  
   const _values = []
     , _fields = [];
 
@@ -34,4 +34,20 @@ const selectFields = (fields, values) => {
   return { _fields, _values };
 };
 
-module.exports = { connection, selectFields };
+const whereFields = (fields, values) => {  
+  const conditions = [];
+
+  for (const field in values) {
+    if (!values.hasOwnProperty(field)) continue;
+      
+    const isValid = fields[field]
+      , value   = values[field]
+      , valid   = isValid(value);
+        
+    conditions.push(`${field}=${valid}`);
+  }
+
+  return conditions;
+};
+
+module.exports = { connection, insertFields, whereFields };

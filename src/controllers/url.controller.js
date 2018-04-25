@@ -4,7 +4,7 @@ class urlController {
   constructor() { }
 
   async create(req, res) {
-    const invalidWords = ['url', 'urls'];
+    const invalidWords = ['/url', '/urls'];
 
     switch (true) {
       case !req.body.hasOwnProperty('url'):
@@ -16,7 +16,11 @@ class urlController {
         break;
 
       case invalidWords.includes(req.body.url):
-        res.status(422).send('This url is not allowed');
+        res.status(422).send('Url is not allowed');
+        break;
+
+      case !req.body.url.startsWith('/'):
+        res.status(422).send('Url at least one bar');
         break;
 
       case await urlService.exist(req.body):
@@ -25,8 +29,7 @@ class urlController {
 
       default:
         urlService.insert(req.body)
-          .then(suc => res.status(suc.status).send(suc.message))
-          .catch(err => res.status(err.status).send(err.message));
+          .then(suc => res.status(suc.status).send(suc.message));
     }
 
   }

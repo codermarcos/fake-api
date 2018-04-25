@@ -1,7 +1,7 @@
 const url = require('./url.route')
-  , root = require('./root.route');
+  , router = require('./router.route');
 
 module.exports = (app) => {
-  app.use('/', root);
+  app.use('/', router);
   app.use('/url', url);
 };

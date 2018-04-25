@@ -26,8 +26,7 @@ exports.up = function (db) {
       body text,
       headers text,
       status integer NOT NULL DEFAULT 200,
-      PRIMARY KEY (id),
-      CONSTRAINT url_unique UNIQUE (url)
+      PRIMARY KEY (id)
   )
   WITH (
       OIDS = FALSE

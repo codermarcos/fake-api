@@ -1,5 +1,9 @@
 
-const { connection, selectFields } = require('./database.service');
+const { 
+  connection
+  , whereFields 
+  , insertFields
+} = require('./database.service');
 
 const { db_name } = require('../environment');
 
@@ -17,7 +21,7 @@ class urlService {
   constructor() { }
 
   async insert(values) {
-    const { _fields, _values } = selectFields(fields, values);
+    const { _fields, _values } = insertFields(fields, values);
 
     const sql = `INSERT INTO ${db_name}.urls (${_fields.join()}) VALUES (${_values.join()})`
       , db = connection();
@@ -31,6 +35,24 @@ class urlService {
     return result.rowCount > 0 ?
       { status: 200, message: 'Inserted with sucess' } :
       { status: 500, message: 'Cannot be insert' };
+  }
+
+  async search(values) {
+    const conditions = whereFields(fields, values);
+
+    const sql = `SELECT * FROM ${db_name}.urls WHERE ${conditions.join(' AND ')}`
+      , db = connection();
+    console.log(sql);
+
+    await db.connect();
+
+    const result = await db.query(sql);
+
+    await db.end();
+
+    return result.rowCount === 1 ? 
+      result.rows[0] :
+      new Error('This route not exist');
   }
 
   async exist({ url, method }) {

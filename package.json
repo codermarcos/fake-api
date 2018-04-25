@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "This is a web application make fake endpoints.",
   "scripts": {
-    "start": "node ./src/application mode=dev",
+    "start": "npx nodemon ./src/application mode=dev",
     "test": "npx mocha ./spec/**/*.spec.js",
     "migrate": "npx db-migrate up",
     "lint": "npx eslint ./"
@@ -20,7 +20,11 @@
     "MockBackend",
     "Mock"
   ],
-  "author": "codermarcos",
+  "author": {
+    "name": "codermarcos",
+    "email": "coder.marcos@gmail.com",
+    "url": "https://github.com/codermarcos"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/codermarcos/fake-api/issues"
