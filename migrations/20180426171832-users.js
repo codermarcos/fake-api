@@ -8,40 +8,39 @@ var seed;
   * We receive the dbmigrate dependency from dbmigrate initially.
   * This enables us to not have to rely on NODE_PATH.
   */
-exports.setup = function (options, seedLink) {
+exports.setup = function(options, seedLink) {
   dbm = options.dbmigrate;
   type = dbm.dataType;
   seed = seedLink;
 };
 
-exports.up = function (db) {
+exports.up = function(db) {
   console.log(type);
   console.log(seed);
   return db.all(`
-  CREATE TABLE fake_api.urls
+  CREATE TABLE fake_api.users
   (
-      id serial NOT NULL,
-      url text NOT NULL,
-      method text NOT NULL DEFAULT 'GET',
-      body text,
-      headers text,
-      status integer NOT NULL DEFAULT 200,
-      PRIMARY KEY (id)
-  )
+     id serial NOT NULL, 
+     email text NOT NULL, 
+     password text NOT NULL, 
+     CONSTRAINT pkey_users_id PRIMARY KEY (id), 
+     CONSTRAINT uniq_users_id UNIQUE (id), 
+     CONSTRAINT uniq_users_email UNIQUE (email)
+  ) 
   WITH (
-      OIDS = FALSE
+    OIDS = FALSE
   );
   
-  ALTER TABLE fake_api.urls
+  ALTER TABLE fake_api.users
       OWNER to postgres;
   `, [], (err, res) => console.log(err || res));
 };
 
-exports.down = function (db) {
+exports.down = function(db) {
   console.log(type);
   console.log(seed);
   return db.all(`
-  DROP TABLE fake_api.urls
+  DROP TABLE fake_api.users
   `, [], (err, res) => console.log(err || res));
 };
 
