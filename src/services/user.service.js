@@ -1,4 +1,3 @@
-
 const { 
   connection
   , whereFields 
@@ -7,24 +6,21 @@ const {
 
 const { db_name } = require('../environment');
 
+
 const fields = {
-  id         : (value) => value
-  , id_owner   : (value) => value
-  , url        : (value) => value
-  , status     : (value) => value
-  , method     : (value) => `'${value}'`
-  , body       : (value) => `'${value}'`
-  , return_type: (value) => `'${value}'`
+  id      : (value) => value
+  , email   : (value) => `'${value}'`
+  , password: (value) => `'${value}'`
 };
 
-class urlService {
+class userService {
 
   constructor() { }
 
   async insert(values) {
     const { _fields, _values } = insertFields(fields, values);
 
-    const sql = `INSERT INTO ${db_name}.urls (${_fields.join()}) VALUES (${_values.join()})`
+    const sql = `INSERT INTO ${db_name}.users (${_fields.join()}) VALUES (${_values.join()})`
       , db = connection();
 
     await db.connect();
@@ -42,10 +38,10 @@ class urlService {
     }
   }
 
-  async search(values) {
+  async login(values) {
     const conditions = whereFields(fields, values);
 
-    const sql = `SELECT * FROM ${db_name}.urls WHERE ${conditions.join(' AND ')}`
+    const sql = `SELECT * FROM ${db_name}.users WHERE ${conditions.join(' AND ')}`
       , db = connection();
 
     await db.connect();
@@ -66,8 +62,8 @@ class urlService {
     }
   }
 
-  async exist({ url, method }) {
-    const sql = `SELECT * FROM ${db_name}.urls WHERE url='${url}' AND method='${method || 'GET'}'`
+  async exist({ email }) {
+    const sql = `SELECT * FROM ${db_name}.urls WHERE email='${email}'`
       , db = connection();
 
     await db.connect();
@@ -80,4 +76,4 @@ class urlService {
   }
 }
 
-module.exports = new urlService();
+module.exports = new userService();

@@ -29,7 +29,8 @@ class urlController {
 
       default:
         urlService.insert(req.body)
-          .then(suc => res.status(suc.status).send(suc.message));
+          .then(suc => res.status(suc.status).send(suc.message))
+          .catch(err => res.status(err.status).send(err.message));
     }
 
   }

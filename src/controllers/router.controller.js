@@ -13,8 +13,10 @@ class routerController {
       url   : req.url
       , method: req.method
     };
+
     urlService.search(resquest)
-      .then(suc => res.status(suc.status).send(suc.body));
+      .then(suc => res.status(suc.status).send(suc.body))
+      .catch(err => res.status(err.status).send(err.message));
   }
 }
 
