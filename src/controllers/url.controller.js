@@ -1,11 +1,11 @@
-const urlService = require('../services/url.service');
+const { validate } = require('../helpers')
+  , urlService = require('../services/url.service');
 
 class urlController {
   constructor() { }
 
   async create(req, res) {
-    const invalidWords = ['/url', '/urls', '@', '.', ','];
-
+    
     switch (true) {
       case !req.body.hasOwnProperty('url'):
         res.status(422).send('Url is require');
@@ -15,7 +15,7 @@ class urlController {
         res.status(422).send('Url cannot be empty');
         break;
 
-      case invalidWords.includes(req.body.url):
+      case validate.url.test(req.body.url):
         res.status(422).send('Url is not allowed');
         break;
 
