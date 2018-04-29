@@ -1,4 +1,5 @@
 const { args } = require('../common')
+  , { validate } = require('../helpers')
   , urlService = require('../services/url.service');
 
 class routerController {
@@ -9,14 +10,38 @@ class routerController {
   }
 
   router(req, res) {
-    const resquest = {
-      url   : req.url
-      , method: req.method
-    };
 
-    urlService.search(resquest)
-      .then(suc => res.status(suc.status).send(suc.body))
-      .catch(err => res.status(err.status).send(err.message));
+    switch (true) {
+      case !req.hasOwnProperty('url'):
+        res.status(422).send('Url is require');
+        break;
+
+      case req.url.toString().length < 4:
+        res.status(422).send('Url invalid');
+        break;
+
+      case validate.url.test(req.url):
+        res.status(422).send('Url is not allowed');
+        break;
+
+      default:
+        urlService.search({
+          url   : req.url
+          , method: req.method
+        })
+          .then(suc => {
+            if (suc.headers && Object.keys(suc.headers).length > 0) {              
+              for (const key in suc.headers) {
+                res.setHeader(key, suc.headers[key]);
+              }
+            }
+
+            res.status(suc.status).send(suc.body);
+          }
+          )
+          .catch(err => res.status(err.status).send(err.message));
+
+    }
   }
 }
 

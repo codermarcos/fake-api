@@ -1,5 +1,5 @@
-const { validate } = require('../helpers');
-const userService = require('../services/user.service');
+const { validate } = require('../helpers')
+  , userService = require('../services/user.service');
 
 class userController {
   constructor() { }
